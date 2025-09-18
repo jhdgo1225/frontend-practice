@@ -1,0 +1,15 @@
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "- 타입 지정 및 추론     - 컴파일 타임에서 타입 에러 발생     - 컴파일 완료 시 자바스크립트 코드로 변환",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "5.9.2"
+  }
+}

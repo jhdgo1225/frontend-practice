@@ -7,7 +7,7 @@
 ### 기본 데이터 타입
 
     - string
-    - int
+    - number
     - boolean
     - undefined
     - null
@@ -175,6 +175,7 @@ const nico: Player = {
 ```
 
 ### interface
+
 - object 모양을 특정해주기 위한 키워드. 상속 제공(extends)
 - property 축적 가능
 
@@ -196,6 +197,7 @@ const nico: Player = {
 ```
 
 ### implements
+
 - 클래스가 특정 인터페이스를 충족하는지 확인
 - 클래스를 올바르게 구현하지 못하면 오류가 발생
 - 인터페이스 유형으로 처리될 수 있는지 확인
@@ -262,3 +264,24 @@ const booleansStorage = new LocalStorage<boolean>();
 booleansStorage.get("xxx");
 booleansStorage.set("hello", true);
 ```
+
+### 타입스크립트 build
+
+- "tsc" 명령어 실행
+- 명령어 실행 후 디폴트로 특정 타입스크립트 파일이 위치한 경로에 자바스크립트 파일 생성
+- tsconfig.json 파일로 컴파일 대상이 되는 경로, 빌드 폴더(outDir), ES 버전 등을 설정할 수 있다.
+- tsconfig.json에서 lib 옵션은 타입스크립트에게 어떤 API를 사용하고 어떤 환경에서 코드를 실행하는 지를 정의
+
+### .d.ts
+
+- 정의 파일
+- 자바스크립트 코드의 모양을 타입스크립트에 설명해주는 파일
+
+### JSDoc
+
+- 타입스크립트에서 자바스크립트 코드 설명을 읽을 수 있도록 표현된 주석
+- 자바스크립트 파일에서 첫 줄에 // @ts-check 이후 작성 가능하다
+
+### DefinitelyTyped
+- TypeScript type 정의를 위한 리포지토리: https://github.com/DefinitelyTyped/DefinitelyTyped
+- @types/node 패키지 설치: npm i @types/node -D
