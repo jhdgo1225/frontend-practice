@@ -1,0 +1,264 @@
+### 타입스크립트 특징
+
+    - 타입 지정 및 추론
+    - 컴파일 타임에서 타입 에러 발생
+    - 컴파일 완료 시 자바스크립트 코드로 변환
+
+### 기본 데이터 타입
+
+    - string
+    - int
+    - boolean
+    - undefined
+    - null
+
+### 암시적 타입
+
+### 선택적 타입
+
+### Alias 타입 생성
+
+### 함수 argument 타입, return 타입 명시
+
+### readonly
+
+### Tuple
+
+- 예시
+
+```typescript
+const player: readonly [string, number, boolean] = ["nico", 1, true];
+```
+
+### 특수 타입('특수' 워딩은 스스로가 지칭한 것. 공식 용어 ❌)
+
+- any: 여러 타입 수용. 좋은 방안은 아님
+- unknown: 여러 타입 수용. any는 타입 에러를 무시하고 any 타입의 변수에서 접근가능한 프로퍼티를 이용할 수 있음. 그러나 unknown은 그런 동작을 하지 못하도록 방지한다.
+- never: 일부 함수는 값을 반환하지 않는다. 이는 함수가 예외를 throw 하거나 프로그램 실행을 종료함을 의미한다.
+
+### 함수 call signature
+
+```typescript
+type Add = (a: number, b: number) => number;
+
+const add: Add = (a, b) => a + b;
+```
+
+### overloading: 하나의 함수에 복수의 Call signature를 가질 수 있는 성질
+
+```typescript
+type Add = {
+  (a: number, b: number): number;
+  (a: number, b: string): number;
+};
+
+const add: Add = (a, b) => {
+  if (typeof b === "string") return a;
+  return a + b;
+};
+
+type Config = {
+  path: string;
+  state: object;
+};
+
+type Push = {
+  (path: string): void;
+  (config: Config): void;
+};
+
+const push: Push = (config) => {
+  if (typeof config === "string") {
+    console.log(config);
+  } else {
+    console.log(config.path, config.state);
+  }
+};
+
+type Add = {
+  (a: number, b: number): number;
+  (a: number, b: number, c: number): number;
+};
+
+const add: Add = (a, b, c?: number) => {
+  if (c) return a + b + c;
+  return a + b;
+};
+```
+
+### 다형성(polymorphism), 제네릭(generic)
+
+```typescript
+/* type SuperPrint = {
+	(arr: number[]): void
+	(arr: boolean[]): void
+	(arr: string[]): void
+	(arr: (number|boolean)[]): void
+} */
+
+type SuperPrint = {
+  <T>(arr: T[]): T;
+};
+
+const superPrint: SuperPrint = (arr) => {
+  arr.forEach((i) => console.log(i));
+};
+
+superPrint([1, 2, 3, 4]);
+superPrint([true, false, true]);
+superPrint(["a", "b", "c"]);
+superPrint([1, 2, true, false]);
+```
+
+### 클래스
+
+```typescript
+class Player {
+  constructor(
+    private firstName: string,
+    private lastName: string,
+    public nickname: string
+  ) {}
+}
+
+const nico = new Player("nico", "las", "니꼬");
+
+nico.firstName;
+nico.nickname;
+```
+
+### 추상 클래스: 기능 확장에 중심을 둔 클래스. 구체 클래스 생성용. 해당 클래스로 인스턴스 생성 불가능
+
+### 추상 메소드: 추상 클래스를 상속받는 클래스에서 반드시 구현해야 하는 메소드
+
+```typescript
+abstract class User {
+  constructor(
+    private firstName: string,
+    private lastName: string,
+    public nickname: string
+  ) {}
+
+  abstract getNickName(): void;
+
+  getFullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+}
+
+class Player extends User {
+  getNickName() {
+    console.log(this.nickname);
+  }
+}
+
+const nico = new Player("nico", "las", "니꼬");
+```
+
+### type 키워드 활용 추가 설명
+
+```typescript
+type Team = "red" | "blue" | "yellow";
+type Health = 1 | 5 | 10;
+
+type Player = {
+  nickname: string;
+  team: Team;
+  health: Health;
+};
+
+const nico: Player = {
+  nickname: "pico",
+  team: "pink",
+  health: 5,
+};
+```
+
+### interface
+- object 모양을 특정해주기 위한 키워드. 상속 제공(extends)
+- property 축적 가능
+
+```typescript
+type Team = "red" | "blue" | "yellow";
+type Health = 1 | 5 | 10;
+
+interface Player {
+  nickname: string;
+  team: Team;###
+  health: Health;
+}
+
+const nico: Player = {
+  nickname: "pico",
+  team: "pink",
+  health: 5,
+};
+```
+
+### implements
+- 클래스가 특정 인터페이스를 충족하는지 확인
+- 클래스를 올바르게 구현하지 못하면 오류가 발생
+- 인터페이스 유형으로 처리될 수 있는지 확인
+- 클래스의 유형이나 메서드는 전혀 변경하지 않음
+- 클래스는 여러 인터페이스를 구현 (예시: **class A implements B, C, D**)
+
+```typescript
+interface User {
+  firstName: string;
+  lastName: string;
+  sayHi(name: string): string;
+  fullName(): string;
+}
+
+interface Human {
+  health: number;
+}
+
+class Player implements User {
+  constructor(
+    public firstName: string,
+    public lastName: string,
+    public health: number
+  ) {}
+
+  fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+
+  sayHi(name: string) {
+    return `Hello ${name}. My name is ${this.fullName()}`;
+  }
+}
+```
+
+### 다형성, 제네릭, 클래스, 인터페이스 전체 활용 예시
+
+```typescript
+interface SStorage<T> {
+  [key: string]: T;
+}
+
+class LocalStorage<T> {
+  private storage: SStorage<T> = {};
+  set(key: string, value: T) {
+    this.storage[key] = value;
+  }
+  remove(key: string) {}
+  get(key: string): T {
+    return this.storage[key];
+  }
+  clear() {
+    this.storage = {};
+  }
+}
+
+const stringsStorage = new LocalStorage<string>();
+
+stringsStorage.get("ket");
+stringsStorage.set("hello", "how are you");
+
+const booleansStorage = new LocalStorage<boolean>();
+
+booleansStorage.get("xxx");
+booleansStorage.set("hello", true);
+```
