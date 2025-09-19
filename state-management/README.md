@@ -12,7 +12,8 @@
 
 ### 프론트엔드 상태관리 방법의 변화
 
-(이미지 첨부)
+<img width="600" height="330" alt="스크린샷 2025-09-19 오후 10 49 37" src="https://github.com/user-attachments/assets/564df829-08eb-44ca-a75f-bc432f460286" />
+
 
 ### Zustand, React Query 상태관리 라이브러리 용도
 
@@ -72,6 +73,11 @@
 - Zustand
   - 스토어에 모두 구현
   - 컴포넌트에서 호출
+ 
+### 정리
+
+<img width="900" height="530" alt="스크린샷 2025-09-20 오전 12 01 08" src="https://github.com/user-attachments/assets/1e053a1a-5236-4d5e-957b-05e4581e75f7" />
+
 
 ---
 
