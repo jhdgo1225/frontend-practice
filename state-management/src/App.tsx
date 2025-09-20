@@ -1,5 +1,10 @@
+import { BearCounter, Controls } from "./components/Bear";
+
 function App() {
-  return <></>;
+  return <>
+    <BearCounter />
+    <Controls />
+  </>;
 }
 
 export default App;
