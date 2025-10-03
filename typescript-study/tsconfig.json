@@ -1,5 +1,5 @@
 {
-  "include": ["src"],
+  "include": ["src", "tutorial/myPackage.d.ts"],
   "compilerOptions": {
     "outDir": "build",
     "esModuleInterop": true,

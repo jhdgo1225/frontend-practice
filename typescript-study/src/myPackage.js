@@ -1,3 +1,7 @@
+/**
+ *  #5.4 JSDoc
+ */
+
 // @ts-check
 /**
  * Initializes the project
@@ -18,3 +22,15 @@ export function init(config) {
 export function exit(code) {
   return code + 1;
 }
+
+/**
+ *  #5.3 Declaration Files
+ */
+
+// export function init(config) {
+//   return true;
+// }
+
+// export function exit(code) {
+//   return code + 1;
+// }

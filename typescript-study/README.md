@@ -1,6 +1,7 @@
 ### 타입스크립트 특징
 
     - 타입 지정 및 추론
+    - 타입 안정성
     - 컴파일 타임에서 타입 에러 발생
     - 컴파일 완료 시 자바스크립트 코드로 변환
 
@@ -185,7 +186,7 @@ type Health = 1 | 5 | 10;
 
 interface Player {
   nickname: string;
-  team: Team;###
+  team: Team;
   health: Health;
 }
 
@@ -265,6 +266,35 @@ booleansStorage.get("xxx");
 booleansStorage.set("hello", true);
 ```
 
+### 타입스크립트 환경설정
+
+1. NodeJS 및 타입스크립트 환경 설정
+
+```shell
+npm init -y
+npm i -D typescript
+```
+
+2. tsconfig.json 생성
+
+3. tsconfig.json 내용 작성
+
+```json
+{
+  "include": ["src"],
+  "compilerOptions": {
+    "outDir": "build",
+    "target": "es6",
+    "lib": ["ES6", "DOM"]
+  }
+}
+```
+
+- include: 컴파일 대상이 되는 파일, 혹은 디렉토리
+- outDir: build된 파일들이 보관되는 디렉토리
+- target: build 후 생성된 JavaScript 파일의 ECMAScript 버전
+- lib: 타입스크립트에게 어떤 API를 사용하고 어떤 환경에서 코드를 실행하는 지를 지정. target 런타임 환경이 무엇인지를 지정한다. 프로그램이 브라우저에서 실행되면 lib에 "DOM" 유형을 정의할 수 있다.
+
 ### 타입스크립트 build
 
 - "tsc" 명령어 실행
@@ -276,6 +306,27 @@ booleansStorage.set("hello", true);
 
 - 정의 파일
 - 자바스크립트 코드의 모양을 타입스크립트에 설명해주는 파일
+- 예시(typescript: myPackage.d.ts, javascript: myPackage.js)
+```typescript
+interface Config {
+  url: string;
+}
+
+declare module "myPackage" {
+  function init(config: Config): boolean;
+  function exit(code: number): number;
+}
+```
+
+```javascript
+export function init(config) {
+  return true;
+}
+
+export function exit(code) {
+  return code + 1;
+} 
+```
 
 ### JSDoc
 
@@ -283,5 +334,6 @@ booleansStorage.set("hello", true);
 - 자바스크립트 파일에서 첫 줄에 // @ts-check 이후 작성 가능하다
 
 ### DefinitelyTyped
+
 - TypeScript type 정의를 위한 리포지토리: https://github.com/DefinitelyTyped/DefinitelyTyped
 - @types/node 패키지 설치: npm i @types/node -D
