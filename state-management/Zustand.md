@@ -74,29 +74,26 @@ const useUserStore = create((set) => ({
 
 // ❌ 컴포넌트 A: 이름만 필요한데 전체를 구독
 function UserName() {
-  const 스토어 = useUserStore() // 전체 상태 구독!
+  const 스토어 = useUserStore() // 전체 상태 구독
 
-  return <h1>{스토어.name}</h1>  // 이름만 사용
+  return <h1>{스토어.name}</h1>  // 여기서 이름만 사용
 }
 
 // ❌ 컴포넌트 B: 이메일만 필요한데 전체를 구독
 function UserEmail() {
-  const 스토어 = useUserStore() // 전체 상태 구독!
+  const 스토어 = useUserStore() // 전체 상태 구독
 
-  return <p>{스토어.email}</p>   // 이메일만 사용
+  return <p>{스토어.email}</p>   // 여리서 이메일만 사용
 }
 ```
 
 **상태 변경 발생**
 
 ```javascript
-// 어딘가에서 나이만 바뀌어도...
+// 🚨
+// 어딘가에서 나이만 바뀌어도 UserName, UserEmail 컴포넌트 리렌더링
+// 이름도, 이메일도 바뀐 적이 없지만 관련 상태가 변경되면 스토어를 구독하는 모든 컴포넌트가 리렌더링
 setAge(26);
-
-// 🚨 문제 발생!
-// - UserName 컴포넌트 리렌더링 (이름은 안 바뀌었는데!)
-// - UserEmail 컴포넌트 리렌더링 (이메일도 안 바뀌었는데!)
-// - 스토어를 구독하는 모든 컴포넌트가 리렌더링!
 ```
 
 **반드시 선택자 함수 사용!**

@@ -1,10 +1,14 @@
-import { BearCounter, Controls } from "./components/Bear";
+import Game from "./components/Game";
 
 function App() {
-  return <>
-    <BearCounter />
-    <Controls />
-  </>;
+  return (
+    <>
+      {/* <BearCounter />
+      <Controls />
+      <ReducerTest /> */}
+      <Game />
+    </>
+  );
 }
 
 export default App;
