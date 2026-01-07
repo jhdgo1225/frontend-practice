@@ -157,7 +157,7 @@ console.log(output);
 // that Mike is a youngster
 ```
 
-- string으로 반환할 필요가 없단다
+- 태그드 템플릿으로 만든 함수를 호출할 때 인수 순서가 태그드 템플릿의 표현식 삽입값과 대응된다.
 
 ```javascript
 function template(strings, ...keys) {
@@ -174,8 +174,8 @@ function template(strings, ...keys) {
 
 var t1Closure = template`${0}${1}${0}!`;
 t1Closure("Y", "A"); // "YAY!"
-var t2Closure = template`${0} ${"foo"}!`;
-t2Closure("Hello", { foo: "World" }); // "Hello World!"
+var t2Closure = template`${0} ${"foo"} ${"hh"}!`;
+t2Closure("Hello", { foo: "World", hh: "hihi" }); // "Hello World!"
 ```
 
 ---
