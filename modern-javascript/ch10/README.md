@@ -90,19 +90,17 @@
 - 선언된 변수를 어떤 객체의 프로퍼티로 등록하고 싶다면 키-값 구분 없이 변수명만 등록 가능
 
 ```javascript
-var x = 1,
-  y = 2;
+var x = 1, y = 2;
 
-var obj = {
-  // ES5
+var obj = {          // ES5
   x: x,
   y: y,
 };
 
 var obj2 = { x, y }; // ES6
 
-console.log(obj); // {x: 1, y: 2}
-console.log(obj2); // {x: 1, y: 2}
+console.log(obj);    // {x: 1, y: 2}
+console.log(obj2);   // {x: 1, y: 2}
 ```
 
 ### 메서드 축약 표현

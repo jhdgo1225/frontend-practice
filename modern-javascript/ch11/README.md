@@ -64,6 +64,8 @@ var score = 80;
 	<img src="../images/ch11-pass-by-value1.png" alt="변수 선언 및 할당" width="250" />
 </div>
 
+모던 자바스크립트 4장의 '변수 선언 및 초기화'에 나타난 메모리 저장 방식의 단계를 생략하였다. 선언 및 초기화 작업은 변수가 가리키는 메모리 셀에 값을 바로 저장하지 않는 점을 명심하자.
+
 **변수 copy 선언 후 복사**
 
 ```javascript
@@ -121,7 +123,7 @@ console.log(person); // {name: "Kim", address: "Seoul"}
 
 ```javascript
 var person = {
-	name: 'Lee'
+  name: "Lee",
 };
 ```
 
@@ -141,24 +143,23 @@ var copy = person;
 
 ```javascript
 var person = {
-	name: 'Lee'
+  name: "Lee",
 };
 var copy = person;
 console.log(copy === person);
 
-copy.name = 'Kim';
-person.address = 'Seoul';
+copy.name = "Kim";
+person.address = "Seoul";
 
 // copy와 person은 동일한 객체를 가리킴
-console.log(copy);    // {name: "Kim", address: "Seoul"}
-console.log(person);  // {name: "Kim", address: "Seoul"}
+console.log(copy); // {name: "Kim", address: "Seoul"}
+console.log(person); // {name: "Kim", address: "Seoul"}
 ```
 
 ### 값에 의한 전달 vs 참조에 의한 전달
 
 - 값을 전달하는 지, 실제 객체 정보가 저장된 메모리 주소 참조를 전달하는 지에 따라 pass by value, pass by reference라 부름
 - 그러나 이 둘은 결과적으로 값을 전달한다는 행위 자체는 같다는 점은 동일하기 때문에 사실상 **참조에 의한 전달**은 존재하지 않다는 걸 명심하자
-
 
 ### 얕은 복사(shallow copy)
 
