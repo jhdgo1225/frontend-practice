@@ -213,3 +213,172 @@ Boolean([])         // true
 - 암묵적 타입 변환 코드를 작성한 사람이 결과값을 예측하지 못 한다면 에러가 발생할 확률이 높다.
 - 모든 타입 변환을 명시적으로 작성하는 것은 때론 가독성 면에서 암시적 타입 변환보다 좋지 않을 수 있다.
 - **자신이 작성한 코드가 암묵적 타입 변환이 발생하는지, 발생한다면 어떤 타입의 어떤 값으로 반환되는지, 그리고 타입 변환된 값으로 표현식이 어떻게 평가될 것인지 예측 가능해야 한다.**
+
+### 단축 평가
+
+- 표현식을 평가하는 도중 평가 결과가 확정된 경우 나머지 평가 과정을 생략
+- 논리 연산의 결과를 결정하는 피연산자를 타입 변환하지 않고 그대로 반환
+
+	| 단축 평가 표현식           | 평가 결과    |
+	| ------------------- | -------- |
+	| true \|\| anything  | true     |
+	| false \|\| anything | anything |
+	| true && anything    | anything |
+	| false && anything   | false    |
+
+### 단축 평가 상세 설명
+
+**논리곱(&&) 연산자**
+
+- 두 개의 피연산자 모두 true로 평가될 때 true 반환
+- 좌항에서 우항으로 평가
+
+```javascript
+'Cat' && 'Dog' // 'Cat' -> Truthy, 'Dog' -> Truthy, 따라서 'Dog' 반환
+```
+
+**논리곱(||) 연산자**
+
+##### 논리합(||) 연산자
+
+- 두 개의 피연산자 중 하나만 true로 평가되어도 true로 반환
+- 해당 연산자도 좌항에서 우항으로 평가
+
+```javascript
+'Cat' || 'Dog' // 'Cat' -> Truthy, 따라서 'Cat' 반환
+```
+
+추가 예시
+
+```javascript
+// 논리합(||) 연산자
+'Cat' || 'Dog' // 'Cat'
+false || 'Dog' // 'Dog'
+'Cat' || false // 'Cat'
+
+// 논리곱(&&) 연산자
+'Cat' && 'Dog' // 'Dog'
+false && 'Dog' // false
+'Cat' && false // false
+```
+
+### if문 대신 단축 평가 활용
+
+```javascript
+var done = true;
+var message = '';
+
+// 주어진 조건이 true일 때
+if (done) message = '완료';
+
+// if문은 단축 평가로 대체
+// done이 true이면 message에 '완료'를 할당
+message = done && '완료';
+console.log(message);
+```
+
+```javascript
+var done = false;
+var message = '';
+
+// 주어진 조건이 false일 때
+if (!done) message = '미완료';
+
+// if문은 단축 평가로 대체
+// done이 false이면 message에 '미완료'를 할당
+message = done || '미완료';
+console.log(message);
+```
+
+### 기본값 매개변수
+
+```javascript
+function getStringLength(str) {
+	str = str || '';
+	return str.length;
+}
+
+getStringLength();      // 0
+getStringLength('hi');  // 2
+
+// ES6
+function getStringLength(str = '') {
+	return str.length;
+}
+
+getStringLength();      // 0
+getStringLength('hi');  // 2
+```
+
+### 옵셔널 체이닝 연산자
+
+- ES11에 도입된 연산자. 표기법은 **?.**
+- 좌항의 피연산자가 null 또는 undefined인 경우 undefined 반환, 그렇지 않으면 우항의 프로퍼티 참조
+
+```javascript
+var elem = null;
+
+var value = elem?.value;
+console.log(value);  // undefined
+```
+
+- 이전에는 논리곱(&&) 연산자를 활용해서 좌항이 null 또는 undefined가 아닌지 확인했음
+
+```javascript
+var elem = null;
+
+var value = elem && elem.value;
+console.log(value);  // null
+```
+
+- 해당 방식은 아래와 같은 Case에서 우리가 원하는 결과를 못 얻음
+- Falsy인 ''은 문자열이기 때문에 길이를 구할 수 있지만 ''을 반환
+
+```javascript
+var str = '';
+
+var length = str && str.length;
+console.log(length);  // '', 변수명대로 문자열 길이를 가리키지 않음
+```
+
+- 옵셔널 체이닝으로 유효성 검증을 최대한 활용해보자
+
+```javascript
+var str = '';
+
+var length = str?.length;
+console.log(length);  // 0
+```
+
+### null 병합 연산자
+
+- ES11에 도입된 연산자. 표기법은 **??**
+- 좌항의 피연산자가 null 또는 undefined인 경우 우항의 피연산자 반환, 그렇지 않으면 좌항의 피연산자 반환
+- null 병합 연산자 ??는 변수에 기본값을 설정할 때 유용함
+
+```javascript
+var foo = null ?? 'default string';
+console.log(foo);
+```
+
+- 이전에는 논리합(||) 연산자를 활용해서 좌항이 null 혹은 undefined인지 확인했음
+
+```javascript
+var foo = null || 'default string';
+console.log(foo);  // 'default string'
+```
+
+- 해당 방식은 아래와 같은 Case에 대해서 효과가 없음
+- Falsy인 0이나 ''도 기본값으로 유효하다면 예기치 않은 동작이 발생
+
+```javascript
+var foo = '' || 'default string';
+console.log(foo);  // 'default string'
+```
+
+- null 병합 연산자로 원하는 결과를 얻어보자
+
+```javascript
+var foo = '' ?? 'default string';
+console.log(foo);
+```
