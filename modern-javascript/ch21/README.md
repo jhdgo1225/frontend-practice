@@ -90,14 +90,14 @@ console.log(Number.isInteger(0.5)); // false
 - 예를 들어, 문자열에 대해 마침표 표기법으로 접근하면 그 순간 래퍼 객체인 String 생성자 함수의 인스턴스가 생성되고 문자열은 래퍼 객체의 \[\[StringData\]\] 내부 슬롯에 할당됨
 
 ```javascript
-const str = 'hi';
+const str = "hi";
 
 // 원시 타입인 문자열이 래퍼 객체인 String 인스턴스로 변환됨
-console.log(str.length);  // 2
-console.log(str.toUpperCase());  // HI
+console.log(str.length); // 2
+console.log(str.toUpperCase()); // HI
 
 // 래퍼 객체로 프로퍼티에 접근하거나 메서드를 호출한 후, 다시 원시값으로 되돌림
-console.log(typeof str);  // string
+console.log(typeof str); // string
 ```
 
 - 이때 문자열 래퍼 객체인 String 생성자 함수의 인스턴스는 String.prototype의 메서드를 상속받아 사용할 수 있음
@@ -110,23 +110,23 @@ console.log(typeof str);  // string
 
 ```javascript
 // ① 식별자 str은 문자열을 값으로 가짐
-const str = 'hello';
+const str = "hello";
 
 // ② 식별자 str은 암묵적으로 생성된 래퍼 객체를 가리킴
 // 식별자 str의 값 'hello'는 래퍼 객체의 [[StringData]] 내부 슬롯에 할당됨
 // 래퍼 객체에 name 프로퍼티가 동적 추가됨
-str.name = 'Lee';
+str.name = "Lee";
 
 // ③ 식별자 str은 다시 원래의 문자열, 즉 래퍼 객체의 [[StringData]] 내부 슬롯에 할당된 원시값을 갖는다.
 // 이때 ②에서 생성된 래퍼 객체는 아무도 참조하지 않는 상태이므로 가비지 컬렉션의 대상이 된다.
 
 // ④ 식별자 str은 새롭게 암묵적으로 생성된(②에서 생성된 래퍼 객체와는 다른) 래퍼 객체를 가리킴
 // 새롭게 생성된 래퍼 객체에는 name 프로퍼티가 존재하지 않음
-console.log(str.name);  // undefined
+console.log(str.name); // undefined
 
 // ⑤ 식별자 str은 다시 원래의 문자열, 즉 래퍼 객체의 [[StringData]] 내부 슬롯에 할당된 원시값을 갖는다.
 // 이때 ④에서 생성된 래퍼 객체는 아무도 참조하지 않는 상태이므로 가비지 컬렉션의 대상이 된다.
-console.log(typeof str, str);  // string hello
+console.log(typeof str, str); // string hello
 ```
 
 - 숫자도 마찬가지. 숫자 값에 대해 마침표 표기법으로 접근하면 그 순간 래퍼 객체인 Number 생성자 함수의 인스턴스가 생성되고 숫자는 \[\[NumberData\]\] 내부 슬롯에 할당됨.
@@ -137,26 +137,25 @@ console.log(typeof str, str);  // string hello
 const num = 1.5;
 
 // 원시 타입인 숫자가 래퍼 객체인 Number 객체로 변환
-console.log(num.toFixed());  // 2
+console.log(num.toFixed()); // 2
 
 // 래퍼 객체로 프로퍼티에 접근하거나 메서드를 호출한 후, 다시 원시값으로 되돌림
-console.log(typeof num, num);  // number 1.5
+console.log(typeof num, num); // number 1.5
 ```
 
 - 불리언 값도 마찬가지지만 Boolean 생성자 함수로 생성한 객체의 메서드를 호출하는 경우는 별로 없으므로 넘어가자
-
 
 ### 전역 객체
 
 - 코드가 실행되기 이전 단계에 자바스크립트 엔진에 의해 어떤 객체보다도 먼저 생성되는 특수한 객체
 - 어떤 객체에도 속하지 않은 최상위 객체
 - 브라우저 환경 전역 객체
-	- window
-	- self
-	- this
-	- frames
+  - window
+  - self
+  - this
+  - frames
 - Node.js 환경 전역 객체
-	- global
+  - global
 
 ### globalThis
 
@@ -165,14 +164,14 @@ console.log(typeof num, num);  // number 1.5
 
 ```javascript
 // 브라우저 환경
-globalThis === this    // true
-globalThis === window  // true
-globalThis === self    // true
-globalThis === frames  // true
+globalThis === this; // true
+globalThis === window; // true
+globalThis === self; // true
+globalThis === frames; // true
 
 // Node.js 환경
-globalThis === this    // true
-globalThis === global  // true
+globalThis === this; // true
+globalThis === global; // true
 ```
 
 ### 전역 객체의 프로퍼티
@@ -184,15 +183,17 @@ globalThis === global  // true
 ```javascript
 // 전역 변수
 var foo = 1;
-console.log(window.foo);  // 1
+console.log(window.foo); // 1
 
 // 암묵적 전역
 bar = 2;
-console.log(window.bar);  // 2
+console.log(window.bar); // 2
 
 // 전역 함수
-function baz() { return 3; }
-console.log(window.baz());  // 3
+function baz() {
+  return 3;
+}
+console.log(window.baz()); // 3
 ```
 
 ### 전역 객체 특징
@@ -205,7 +206,7 @@ console.log(window.baz());  // 3
 
 ```javascript
 let fa = 101;
-console.log(window.fa);  // undefined
+console.log(window.fa); // undefined
 ```
 
 - 브라우저 환경의 모든 자바스크립트 코드는 하나의 전역 객체 window를 공유한다. 여러 개의 script 태그를 통해 자바스크립트를 분리해도 하나의 전역 객체를 window를 공유하는 것은 변함이 없다. 이는 분리되어 있는 자바스크립트 코드가 하나의 전역을 공유한다는 의미다.
@@ -213,339 +214,340 @@ console.log(window.fa);  // undefined
 ### 빌트인 전역 프로퍼티
 
 1. Infinity
-	- 무한대를 나타내는 숫자값 Infinity를 가짐
 
-	```javascript
-	// 전역 프로퍼티는 window를 생략하고 참조할 수 있음
-	console.log(window.Infinity === Infinity); // true
+   - 무한대를 나타내는 숫자값 Infinity를 가짐
 
-	// 양의 무한대
-	console.log(3/0)    // Infinity
-	// 음의 무한대
-	console.log(-3/0);  // -Infinity
-	// Infinity는 숫자값
-	console.log(typeof Infinity);  // number
-	```
+   ```javascript
+   // 전역 프로퍼티는 window를 생략하고 참조할 수 있음
+   console.log(window.Infinity === Infinity); // true
+
+   // 양의 무한대
+   console.log(3 / 0); // Infinity
+   // 음의 무한대
+   console.log(-3 / 0); // -Infinity
+   // Infinity는 숫자값
+   console.log(typeof Infinity); // number
+   ```
 
 2. NaN
-	- 숫자가 아님을 나타냄
-	- NaN 프로퍼티는 Number.NaN 프로퍼티와 같음
 
-	```javascript
-	console.log(window.NaN);
+   - 숫자가 아님을 나타냄
+   - NaN 프로퍼티는 Number.NaN 프로퍼티와 같음
 
-	console.log(Number('xyz'));
-	console.log(1 * 'string');
-	console.log(typeof NaN);
-	```
+   ```javascript
+   console.log(window.NaN);
+
+   console.log(Number("xyz"));
+   console.log(1 * "string");
+   console.log(typeof NaN);
+   ```
 
 3. undefined
 
-	```javascript
-	console.log(window.undefined);  // undefined
+   ```javascript
+   console.log(window.undefined); // undefined
 
-	var foo;
-	console.log(foo);  // undefined
-	console.log(typeof undefined);  // undefined
-	```
+   var foo;
+   console.log(foo); // undefined
+   console.log(typeof undefined); // undefined
+   ```
 
 ### 빌트인 전역 함수
 
 1. eval
 
-	- 자바스크립트 코드를 나타내는 문자열을 인수로 전달받아서 표현식이면 런타임에 평가하여 값을 생성, 표현식이 아니면 런타임에 실행
-	- 문자열 코드가 여러 개의 문으로 이루어져 있다면 모든 문을 실행한 다음, 마지막 결과값을 반환
-	- 자신이 호출된 위치에 해당하는 기존의 스코프를 런타임에 동적으로 수정
+   - 자바스크립트 코드를 나타내는 문자열을 인수로 전달받아서 표현식이면 런타임에 평가하여 값을 생성, 표현식이 아니면 런타임에 실행
+   - 문자열 코드가 여러 개의 문으로 이루어져 있다면 모든 문을 실행한 다음, 마지막 결과값을 반환
+   - 자신이 호출된 위치에 해당하는 기존의 스코프를 런타임에 동적으로 수정
 
-	```javascript
-	// 표현식인 문
-	eval('1 + 2;');  // 3
-	// 표현식이 아닌 문
-	eval('var x = 5;');  // undefined
+   ```javascript
+   // 표현식인 문
+   eval("1 + 2;"); // 3
+   // 표현식이 아닌 문
+   eval("var x = 5;"); // undefined
 
-	// eval 함수에 의해 런타임에 변수 선언문이 실행되어 x 변수가 선언됨
-	console.log(x);
+   // eval 함수에 의해 런타임에 변수 선언문이 실행되어 x 변수가 선언됨
+   console.log(x);
 
-	// 객체 리터럴은 반드시 괄호로 둘러싼다.
-	const o = eval('({ a: 1 })');
-	console.log(o);
+   // 객체 리터럴은 반드시 괄호로 둘러싼다.
+   const o = eval("({ a: 1 })");
+   console.log(o);
 
-	// 함수 리터럴은 반드시 괄호로 둘러싼다.
-	const f = eval('(function() { return 1; })');
-	console.log(f());
+   // 함수 리터럴은 반드시 괄호로 둘러싼다.
+   const f = eval("(function() { return 1; })");
+   console.log(f());
 
-	// 여러 개의 문. 마지막 결과값 반환
-	console.log(eval('1 + 2; 3 + 4;'));  // 7
+   // 여러 개의 문. 마지막 결과값 반환
+   console.log(eval("1 + 2; 3 + 4;")); // 7
 
-	const x = 1;
-	function foo() {
-		// eval 함수는 런타임에 foo 함수의 스코프를 동적으로 수정
-		eval('var x = 2;');
-		console.log(x);  // 2
-	}
-	foo();
-	console.log(x);
-	```
+   const x = 1;
+   function foo() {
+     // eval 함수는 런타임에 foo 함수의 스코프를 동적으로 수정
+     eval("var x = 2;");
+     console.log(x); // 2
+   }
+   foo();
+   console.log(x);
+   ```
 
-	- strict mode에서 eval 함수는 기존의 스코프 수정 ❌ eval 함수 자신의 자체적인 스코프 생성
-	- strict mode가 아니라면 eval 함수를 호출하는 스코프에 영향을 준다.
+   - strict mode에서 eval 함수는 기존의 스코프 수정 ❌ eval 함수 자신의 자체적인 스코프 생성
+   - strict mode가 아니라면 eval 함수를 호출하는 스코프에 영향을 준다.
 
-	```javascript
-	const x = 1;
+   ```javascript
+   const x = 1;
 
-	function foo() {
-		'use strict';
-		
-		// strict mode에서 eval 함수는 기존의 스코프를 수정하지 않고 eval 함수 자신의 자체적인 스코프를 생성
-		eval('var x = 2; console.log(x);');  // 2
-		console.log(x);  // 1
-	}
+   function foo() {
+     "use strict";
 
-	foo();
-	console.log(x);  // 1
-	```
+     // strict mode에서 eval 함수는 기존의 스코프를 수정하지 않고 eval 함수 자신의 자체적인 스코프를 생성
+     eval("var x = 2; console.log(x);"); // 2
+     console.log(x); // 1
+   }
 
-	- 또한 인수로 전달받은 문자열 코드가 let, const 키워드를 사용한 변수 선언문이라면 암묵적으로 strict mode가 적용됨
+   foo();
+   console.log(x); // 1
+   ```
 
-	```javascript
-	const x = 1;
+   - 또한 인수로 전달받은 문자열 코드가 let, const 키워드를 사용한 변수 선언문이라면 암묵적으로 strict mode가 적용됨
 
-	function foo() {
-		eval('var x = 2; console.log(x);');
-		// let, const 키워드를 사용한 변수 선언문은 strict mode가 적용됨
-		eval('const x = 3; console.log(x);');  // 3
-		console.log(x);  // 2
-	}
+   ```javascript
+   const x = 1;
 
-	foo();
-	console.log(x);  // 1
-	```
+   function foo() {
+     eval("var x = 2; console.log(x);");
+     // let, const 키워드를 사용한 변수 선언문은 strict mode가 적용됨
+     eval("const x = 3; console.log(x);"); // 3
+     console.log(x); // 2
+   }
 
-	- eval 함수를 통해 사용자로부터 입력받은 콘텐츠를 실행하는 것은 보안에 매우 취약함
-	- 또한 eval 함수를 통해 실행되는 코드는 자바스크립트 엔진에 의해 최적화가 수행되지 않으므로 일반적인 코드 실행에 비해 처리 속도가 느림
-	- **eval 함수 사용은 절대적으로 금지해야 함**
+   foo();
+   console.log(x); // 1
+   ```
 
+   - eval 함수를 통해 사용자로부터 입력받은 콘텐츠를 실행하는 것은 보안에 매우 취약함
+   - 또한 eval 함수를 통해 실행되는 코드는 자바스크립트 엔진에 의해 최적화가 수행되지 않으므로 일반적인 코드 실행에 비해 처리 속도가 느림
+   - **eval 함수 사용은 절대적으로 금지해야 함**
 
 2. isFinite
 
-	- 유한수이면 true, 무한수이면 false 반환
-	- 인수의 타입이 숫자가 아니면 숫자 변환 후 검사
-	- NaN으로 평가되면 false 반환
+   - 유한수이면 true, 무한수이면 false 반환
+   - 인수의 타입이 숫자가 아니면 숫자 변환 후 검사
+   - NaN으로 평가되면 false 반환
 
-	```javascript
-	isFinite(0);
-	isFinite(2e64);
-	isFinite('10');
-	isFinite(null);
+   ```javascript
+   isFinite(0);
+   isFinite(2e64);
+   isFinite("10");
+   isFinite(null);
 
-	isFinite(Infinity);
-	isFinite(-Infinity);
+   isFinite(Infinity);
+   isFinite(-Infinity);
 
-	isFinite(NaN);
-	isFinite('Hello');
-	isFinite('2005/12/12');
+   isFinite(NaN);
+   isFinite("Hello");
+   isFinite("2005/12/12");
 
-	isFinite(null);
-	```
+   isFinite(null);
+   ```
 
 3. isNaN
 
-	- 전달받은 인수가 NaN인지 검사하여 그 결과를 불리언 타입으로 반환
-	- 인수의 타입이 숫자가 아니면 숫자 변환 후 검사
+   - 전달받은 인수가 NaN인지 검사하여 그 결과를 불리언 타입으로 반환
+   - 인수의 타입이 숫자가 아니면 숫자 변환 후 검사
 
-	```javascript
-	isNaN(NaN);
-	isNaN(10);
+   ```javascript
+   isNaN(NaN);
+   isNaN(10);
 
-	isNaN('blabla');
-	isNaN('10');
-	isNaN('10.12');
-	isNaN(' ');
-	isNaN('');
+   isNaN("blabla");
+   isNaN("10");
+   isNaN("10.12");
+   isNaN(" ");
+   isNaN("");
 
-	isNaN(true);
-	isNaN(false);
+   isNaN(true);
+   isNaN(false);
 
-	isNaN(undefined);
+   isNaN(undefined);
 
-	isNaN({});
+   isNaN({});
 
-	isNaN(new Date());
-	isNaN(new Date().toString());
-	```
+   isNaN(new Date());
+   isNaN(new Date().toString());
+   ```
 
 4. parseFloat
 
-	- 전달받은 문자열 인수를 부동 소숫점 숫자로 해석
+   - 전달받은 문자열 인수를 부동 소숫점 숫자로 해석
 
-	```javascript
-	parseFloat('3.14');
-	parseFloat('10.00');
+   ```javascript
+   parseFloat("3.14");
+   parseFloat("10.00");
 
-	// 공백으로 구분된 문자열은 첫 번째 문자열만 변환
-	parseFloat('34 45 66');  // 34
-	parseFloat('40 years');  // 40
+   // 공백으로 구분된 문자열은 첫 번째 문자열만 변환
+   parseFloat("34 45 66"); // 34
+   parseFloat("40 years"); // 40
 
-	parseFloat('He was 40');  // NaN
+   parseFloat("He was 40"); // NaN
 
-	// 앞뒤 공백은 무시
-	parseFloat(' 60 ');  // 60
-	```
+   // 앞뒤 공백은 무시
+   parseFloat(" 60 "); // 60
+   ```
 
 5. parseInt
 
-	- 전달받은 문자열 인수를 정수로 해석
+   - 전달받은 문자열 인수를 정수로 해석
 
-	```javascript
-	parseInt('10');
-	parseInt('10.123');
-	```
+   ```javascript
+   parseInt("10");
+   parseInt("10.123");
+   ```
 
-	- 문자열 아니면 문자열로 변환한 다음 정수로 해석하여 반환
+   - 문자열 아니면 문자열로 변환한 다음 정수로 해석하여 반환
 
-	```javascript
-	parseInt(10);      // 10
-	parseInt(10.123);  // 10
-	```
+   ```javascript
+   parseInt(10); // 10
+   parseInt(10.123); // 10
+   ```
 
-	- 두 번째 인수로 진법을 나타내는 기수(2 ~ 36)를 전달
-	- 반환값은 언제나 10진수
-	- 기수를 생략하면 10진수로 해석하여 반환
+   - 두 번째 인수로 진법을 나타내는 기수(2 ~ 36)를 전달
+   - 반환값은 언제나 10진수
+   - 기수를 생략하면 10진수로 해석하여 반환
 
-	```javascript
-	parseInt('10')      // 10
-	parseInt('10', 2)   // 2
-	parseInt('10', 8)   // 8
-	parseInt('10', 16)  // 16
-	```
+   ```javascript
+   parseInt("10"); // 10
+   parseInt("10", 2); // 2
+   parseInt("10", 8); // 8
+   parseInt("10", 16); // 16
+   ```
 
-	- 기수를 지정하여 10진수 숫자를 해당 기수의 문자열로 변환하여 반환하고 싶을 때, Number.prototype.toString 메서드를 사용
+   - 기수를 지정하여 10진수 숫자를 해당 기수의 문자열로 변환하여 반환하고 싶을 때, Number.prototype.toString 메서드를 사용
 
-	```javascript
-	const x = 15;
+   ```javascript
+   const x = 15;
 
-	x.toString(2);  // '1111'
-	parseInt(x.toString(2), 2);  // 15
+   x.toString(2); // '1111'
+   parseInt(x.toString(2), 2); // 15
 
-	x.toString(8);  // '17'
-	parseInt(x.toString(8), 8);  // 15
+   x.toString(8); // '17'
+   parseInt(x.toString(8), 8); // 15
 
-	x.toString(16);  // 'f'
-	parseInt(x.toString(16), 16)  // 15
+   x.toString(16); // 'f'
+   parseInt(x.toString(16), 16); // 15
 
-	x.toString();  // '15'
-	parseInt(x.toString());  // 15
-	```
+   x.toString(); // '15'
+   parseInt(x.toString()); // 15
+   ```
 
-	- 16진수 리터럴이 첫 번째 인수로 전달된다면, 두 번째 인수에 16진법을 나타내는 기수를 지정하지 않아도 10진수 정수로 변환
-	- 그러나 2진수 리터럴, 8진수 리터럴은 그러지 못한다.
+   - 16진수 리터럴이 첫 번째 인수로 전달된다면, 두 번째 인수에 16진법을 나타내는 기수를 지정하지 않아도 10진수 정수로 변환
+   - 그러나 2진수 리터럴, 8진수 리터럴은 그러지 못한다.
 
-	```javascript
-	parseInt('0xf');    // 15
-	parseInt('f', 16);  // 15
-	parseInt('0b10');   // 0
-	parseInt('0o10');   // 0
-	```
+   ```javascript
+   parseInt("0xf"); // 15
+   parseInt("f", 16); // 15
+   parseInt("0b10"); // 0
+   parseInt("0o10"); // 0
+   ```
 
-	- 첫 번째 인수로 전달한 문자열이 첫 번째 문자가 해당 지수의 숫자로 변환될 수 없다면 NaN을 반환
+   - 첫 번째 인수로 전달한 문자열이 첫 번째 문자가 해당 지수의 숫자로 변환될 수 없다면 NaN을 반환
 
-	```javascript
-	parseInt('A0');     // NaN
-	parseInt('20', 2);  // NaN, '2'는 2진수가 아님
-	```
+   ```javascript
+   parseInt("A0"); // NaN
+   parseInt("20", 2); // NaN, '2'는 2진수가 아님
+   ```
 
-	- 첫 번째 인수로 전달한 문자열의 두 번째 문자부터 해당 진수를 나타내는 숫자가 아닌 문자와 마주치면 이 문자와 계속되는 문자들은 전부 무시되며 해석된 정수값만 반환
+   - 첫 번째 인수로 전달한 문자열의 두 번째 문자부터 해당 진수를 나타내는 숫자가 아닌 문자와 마주치면 이 문자와 계속되는 문자들은 전부 무시되며 해석된 정수값만 반환
 
-	```javascript
-	parseInt('1A0');     // 1
-	parseInt('102', 2);  // 2
-	parseInt('58', 8);   // 5
-	parseInt('FG', 16);  // 15 
-	```
+   ```javascript
+   parseInt("1A0"); // 1
+   parseInt("102", 2); // 2
+   parseInt("58", 8); // 5
+   parseInt("FG", 16); // 15
+   ```
 
-	- 첫 번째 인수로 전달한 문자열에 공백이 있다면 첫 번째 문자열만 해석하여 반환하며 앞뒤 공백은 무시됨
-	- 만약 첫 번째 문자열을 숫자로 해석할 수 없는 경우 NaN을 반환
+   - 첫 번째 인수로 전달한 문자열에 공백이 있다면 첫 번째 문자열만 해석하여 반환하며 앞뒤 공백은 무시됨
+   - 만약 첫 번째 문자열을 숫자로 해석할 수 없는 경우 NaN을 반환
 
-	```javascript
-	parseInt('34 45 66');   // 34
-	parseInt('40 years');   // 40
-	parseInt('He was 40');  // NaN
-	parseInt(' 60 ');       // 60
-	```
+   ```javascript
+   parseInt("34 45 66"); // 34
+   parseInt("40 years"); // 40
+   parseInt("He was 40"); // NaN
+   parseInt(" 60 "); // 60
+   ```
 
 6. encodeURI
 
-	- 완전한 URI를 문자열로 전달받아 이스케이프 처리를 위해 인코딩
-	- 인코딩이란 URI의 문자들을 이스케이프 처리하는 것을 의미
-	- 쿼리 스트링 구분자로 사용되는 =, ?, &은 인코딩하지 않는다.
+   - 완전한 URI를 문자열로 전달받아 이스케이프 처리를 위해 인코딩
+   - 인코딩이란 URI의 문자들을 이스케이프 처리하는 것을 의미
+   - 쿼리 스트링 구분자로 사용되는 =, ?, &은 인코딩하지 않는다.
 
-	```javascript
-	// 완전한 URI
-	const uri = 'http://example.com?name=이웅모&job=programmer&teacher';
+   ```javascript
+   // 완전한 URI
+   const uri = "http://example.com?name=이웅모&job=programmer&teacher";
 
-	// encodeURI 함수
-	const enc = encodeURI(uri);
-	console.log(enc);
-	// http://example.com?name=%EC%9D%B4%EC%9B%85%EB%AA%A8&job=programmer&teacher
-	```
+   // encodeURI 함수
+   const enc = encodeURI(uri);
+   console.log(enc);
+   // http://example.com?name=%EC%9D%B4%EC%9B%85%EB%AA%A8&job=programmer&teacher
+   ```
 
 7. decodeURI
 
-	- 인코딩된 URI를 인수로 전달받아 이스케이프 처리 이전으로 디코딩
+   - 인코딩된 URI를 인수로 전달받아 이스케이프 처리 이전으로 디코딩
 
-	```javascript
-	// 완전한 URI
-	const uri = 'http://example.com?name=이웅모&job=programmer&teacher';
+   ```javascript
+   // 완전한 URI
+   const uri = "http://example.com?name=이웅모&job=programmer&teacher";
 
-	// encodeURI 함수
-	const enc = encodeURI(uri);
-	console.log(enc);
-	// http://example.com?name=%EC%9D%B4%EC%9B%85%EB%AA%A8&job=programmer&teacher
+   // encodeURI 함수
+   const enc = encodeURI(uri);
+   console.log(enc);
+   // http://example.com?name=%EC%9D%B4%EC%9B%85%EB%AA%A8&job=programmer&teacher
 
-	// decodeURI 함수는 인코딩된 완전한 URI를 전달받아 이스케이프 처리 이전으로 디코딩한다.
-	const dec = decodeURI(enc);
-	console.log(dec);
-	```
+   // decodeURI 함수는 인코딩된 완전한 URI를 전달받아 이스케이프 처리 이전으로 디코딩한다.
+   const dec = decodeURI(enc);
+   console.log(dec);
+   ```
 
-	**URI 문법 형식 표준**
+   **URI 문법 형식 표준**
 
-	- URI 문법 형식 표준 RFC3986에 따르면 URL은 아스키 문자 셋으로만 구성되어야 하며 한글을 포함한 대부분의 외국어나 아스키 문자 셋에 정의되지 않은 특수 문자의 경우 URL에 포함될 수 없다.
-	- 따라서 URL 내에서 의미를 갖고 있는 문자(%, ?, \#)나 URL에 올 수 없는 문자(한글, 공백 등) 또는 시스템에 의해 해석될 수 있는 문자(<, >)를 이스케이프 처리해야 한다.
-	- 단, 알파벳, 0~9 숫자, - \_ . ! ~ \* ' ( ) 문자는 이스케이프 처리에서 제외된다.
+   - URI 문법 형식 표준 RFC3986에 따르면 URL은 아스키 문자 셋으로만 구성되어야 하며 한글을 포함한 대부분의 외국어나 아스키 문자 셋에 정의되지 않은 특수 문자의 경우 URL에 포함될 수 없다.
+   - 따라서 URL 내에서 의미를 갖고 있는 문자(%, ?, \#)나 URL에 올 수 없는 문자(한글, 공백 등) 또는 시스템에 의해 해석될 수 있는 문자(<, >)를 이스케이프 처리해야 한다.
+   - 단, 알파벳, 0~9 숫자, - \_ . ! ~ \* ' ( ) 문자는 이스케이프 처리에서 제외된다.
 
 8. encodeURIComponent
 
-	- URI 구성 요소를 인수로 전달받아 인코딩
-	- 알파벳, 0~9 숫자, -\_\.!~\*'() 문자는 이스케이프 처리에서 제외
-	- 인수로 전달된 문자열을 URI 구성요소인 쿼리 스트리의 일부로 간주
-	- 따라서 쿼리 스트링 구분자로 사용되는 =, ?, &까지 인코딩
+   - URI 구성 요소를 인수로 전달받아 인코딩
+   - 알파벳, 0~9 숫자, -\_\.!~\*'() 문자는 이스케이프 처리에서 제외
+   - 인수로 전달된 문자열을 URI 구성요소인 쿼리 스트리의 일부로 간주
+   - 따라서 쿼리 스트링 구분자로 사용되는 =, ?, &까지 인코딩
 
 9. decodeURIComponent
 
-	- 매개변수로 전달된 URI 구성 요소를 인코딩된 URI로 간주하고 디코딩
+   - 매개변수로 전달된 URI 구성 요소를 인코딩된 URI로 간주하고 디코딩
 
-	```javascript
-	const uriComp = 'name=이웅모&job=programmer&teacher';
+   ```javascript
+   const uriComp = "name=이웅모&job=programmer&teacher";
 
-	let enc = encodeURIComponent(uriComp);
-	console.log(enc);
+   let enc = encodeURIComponent(uriComp);
+   console.log(enc);
 
-	let dec = decodeURIComponent(enc);
-	console.log(dec);
+   let dec = decodeURIComponent(enc);
+   console.log(dec);
 
-	enc = encodeURI(uriComp);
-	console.log(enc);
+   enc = encodeURI(uriComp);
+   console.log(enc);
 
-	dec = decodeURI(enc);
-	console.log(dec);
-	```
+   dec = decodeURI(enc);
+   console.log(dec);
+   ```
 
 ### 암묵적 전역
 
 ```javascript
 var x = 10;
 function foo() {
-	y = 20;
+  y = 20;
 }
 foo();
 console.log(x + y);
@@ -563,11 +565,11 @@ console.log(y);
 var x = 10;
 
 function foo() {
-	y = 20;  // window.y = 20;
+  y = 20; // window.y = 20;
 }
 foo();
 
-console.log(x + y);  // 30
+console.log(x + y); // 30
 ```
 
 - 전역 변수도 프로퍼티이지만 delete 연산자로 삭제할 수 없다.
