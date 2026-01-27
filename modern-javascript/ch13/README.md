@@ -9,8 +9,6 @@
 
 ### 스코프 종류
 
-### 스코프 종류
-
 ```javascript
 var x = "global x";
 var y = "global y";
