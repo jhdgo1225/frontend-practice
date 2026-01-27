@@ -282,14 +282,9 @@ console.log(count); // 2
 
 6. 콜백 함수(callback function)
 
-### 콜백 함수
-
 - 함수의 매개변수를 통해 다른 함수의 내부로 전달되는 함수
 - 이 때, 매개변수를 통해 함수의 외부에서 콜백 함수를 전달받은 함수를 고차 함수(Higher-Order Function, HOF)라고 부름
-
-### 콜백 함수 예시
-
-- 현재 repeat() 함수는 console.log()에 강하게 의존하고 있어 다른 일을 할 수 없음
+- 아래 예시에서 repeat() 함수는 console.log()에 강하게 의존하고 있어 다른 일을 할 수 없음
 - 따라서 repeat 함수의 반복문 내부에서 다른 일을 하고 싶다면 함수를 새롭게 정의해야만 함
 
 ```javascript
@@ -314,19 +309,17 @@ repeat2(5); // 1 3
 ```javascript
 // 외부에서 전달받은 f를 n만큼 반복 호출
 function repeat(n, f) {
-	for (var i = 0; i < n; i++) {
-		f(i);  // i를 전달하면서 f를 호출
-	}
+  for (var i = 0; i < n; i++) {
+    f(i); // i를 전달하면서 f를 호출
+  }
 }
 
-var logAll = ;
-
 repeat(5, function (i) {
-	console.log(i);
+  console.log(i);
 });
 
 var logOdds = function (i) {
-	if (i % 2) console.log(i);
+  if (i % 2) console.log(i);
 };
 
 repeat(5, logOdds);
